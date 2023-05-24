@@ -13,6 +13,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import address from '../index.js';
 
 const BackgroundImage = styled(Box)`
       background-image: url('https://img1.akspic.ru/attachments/crops/5/6/3/8/2/128365/128365-vegetarianskaya_pishha-banan-mestnoe_blyudo-pishha-frukty-1920x1080.jpg');
@@ -40,7 +41,7 @@ function Query() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8080/api/v1/auth/addcart',
+            url: `http://${address}:8080/api/v1/auth/addcart`,
             headers: { 
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -63,7 +64,7 @@ function Query() {
           headers: { 
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }}
-    axios.delete(`http://localhost:8080/goods/del?goodId=${goodId}`,config)
+    axios.delete(`http://${address}:8080/goods/del?goodId=${goodId}`,config)
       .then(response => {
         console.log(response.data);
       })
@@ -74,7 +75,7 @@ function Query() {
   
     useEffect(() => {
       function fetchData() {
-        axios.get("http://localhost:8080/goods/search" + (filter ? ("?name=" + filter) : ""))
+        axios.get(`http://${address}:8080/goods/search` + (filter ? ("?name=" + filter) : ""))
           .then(response => {
             setPage(response.data);
             console.log(response.data);
@@ -87,7 +88,7 @@ function Query() {
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
           };
-          axios.get('http://localhost:8080/profile',config).then(response => {
+          axios.get(`http://${address}:8080/profile`,config).then(response => {
             localStorage.role = response.data.role;
             setPage(response.data);
           })

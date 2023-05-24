@@ -11,6 +11,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import address from '../index.js';
 
 const BackgroundImage = styled(Box)`
       background-image: url('https://img1.akspic.ru/attachments/crops/5/6/3/8/2/128365/128365-vegetarianskaya_pishha-banan-mestnoe_blyudo-pishha-frukty-1920x1080.jpg');
@@ -45,7 +46,7 @@ export function Login() {
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/api/v1/auth/authenticate',
+        url: `http://${address}:8080/api/v1/auth/authenticate`,
         headers: { 
           'Content-Type': 'application/json'
         },

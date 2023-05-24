@@ -13,6 +13,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import address from '../index.js';
 
 const BackgroundImage = styled(Box)`
       background-image: url('https://img1.akspic.ru/attachments/crops/5/6/3/8/2/128365/128365-vegetarianskaya_pishha-banan-mestnoe_blyudo-pishha-frukty-1920x1080.jpg');
@@ -38,7 +39,7 @@ export default function Products() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:8080/api/v1/auth/addcart',
+            url: `http://${address}:8080/api/v1/auth/addcart`,
             headers: { 
               'Content-Type': 'application/json',
               'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -60,7 +61,7 @@ export default function Products() {
             headers: { 
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }}
-      axios.delete(`http://localhost:8080/goods/del?goodId=${goodId}`,config)
+      axios.delete(`http://${address}:8080/goods/del?goodId=${goodId}`,config)
         .then(response => {
           console.log(response.data);
           navigate.push("/goods/view");
@@ -71,7 +72,7 @@ export default function Products() {
     }
   
     React.useEffect(() => {
-      fetch("http://localhost:8080/goods/view")
+      fetch(`http://${address}:8080/goods/view`)
         .then(res => res.json())
         .then(result => {
           setProducts(result);

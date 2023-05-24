@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Switch, {SwitchProps } from '@mui/material/Switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import address from '../index.js';
 
 
 
@@ -14,7 +15,7 @@ export default function Admin(){
     const[users, setUsers]=React.useState([])
 
     React.useEffect(()=>{
-        fetch("http://localhost:8080/user/view")
+        fetch(`http://${address}:8080/user/view`)
         .then(res=>res.json())
         .then((result)=>{
             setUsers(result);

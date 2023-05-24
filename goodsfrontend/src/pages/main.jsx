@@ -5,6 +5,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import address from '../index.js';
 
 export default function Main() {
     const BackgroundImage = styled(Box)`

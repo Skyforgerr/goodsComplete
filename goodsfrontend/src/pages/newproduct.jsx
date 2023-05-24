@@ -10,6 +10,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { styled } from '@mui/system';
+import address from '../index.js';
 
 const BackgroundImage = styled(Box)`
       background-image: url('https://img1.akspic.ru/attachments/crops/5/6/3/8/2/128365/128365-vegetarianskaya_pishha-banan-mestnoe_blyudo-pishha-frukty-1920x1080.jpg');
@@ -44,7 +45,7 @@ export function NewProduct() {
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/goods/add',
+        url: `http://${address}:8080/goods/add`,
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -64,7 +65,7 @@ export function NewProduct() {
     const handleClick=(e)=>{
         const product={name, cost, description, amount}
         console.log(product)
-        fetch("http://localhost:8080/goods/add", {
+        fetch(`http://${address}:8080/goods/add`, {
             method: "POST",
             headers: {"Content-Type" : "application/json"},
             body: JSON.stringify(product)

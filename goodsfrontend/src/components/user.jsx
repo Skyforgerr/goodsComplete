@@ -6,6 +6,7 @@ import { Paper } from '@mui/material';
 import Button from '@mui/material/Button';
 import axios, { formToJSON } from "axios";
 import { styled } from '@mui/system';
+import address from '../index.js';
 
 const BackgroundImage = styled(Box)`
       background-image: url('https://img1.akspic.ru/attachments/crops/5/6/3/8/2/128365/128365-vegetarianskaya_pishha-banan-mestnoe_blyudo-pishha-frukty-1920x1080.jpg');
@@ -34,7 +35,7 @@ export function User() {
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: 'http://localhost:8080/api/v1/auth/register',
+        url: `http://${address}:8080/api/v1/auth/register`,
         headers: { 
           'Content-Type': 'application/json'
         },

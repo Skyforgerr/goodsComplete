@@ -13,6 +13,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { styled } from '@mui/system';
+import address from '../index.js';
 
 const BackgroundImage = styled(Box)`
       background-image: url('https://img1.akspic.ru/attachments/crops/5/6/3/8/2/128365/128365-vegetarianskaya_pishha-banan-mestnoe_blyudo-pishha-frukty-1920x1080.jpg');
@@ -42,7 +43,7 @@ function Profile(){
               'Authorization': `Bearer ${localStorage.getItem("token")}`
             }
           };
-          axios.get('http://localhost:8080/api/v1/auth/profile',config).then(response => {
+          axios.get(`http://${address}:8080/api/v1/auth/profile`,config).then(response => {
               console.log(response.data);
               localStorage.role = response.data.role;
               setPerson(response.data);

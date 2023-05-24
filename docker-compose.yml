@@ -1,0 +1,25 @@
+version: '1'
+services:
+  node-client:
+    build: 
+      context: ./
+      dockerfile: ./docker/node/Dockerfile
+    restart: always
+    ports:
+      - "3000:3000"
+      
+  java-server:
+    image: shimadsy/goods-delivery
+    restart: always
+    ports:
+      - "8080:8080"
+
+  db:
+    build: ./docker/db
+    restart: always
+    environment:
+      POSTGRES_DB: "public"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "qwertyps4"
+    ports:
+      - "5432:5432"

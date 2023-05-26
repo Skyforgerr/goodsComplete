@@ -35,7 +35,7 @@ export function User() {
       let config = {
         method: 'post',
         maxBodyLength: Infinity,
-        url: `http://${address}:8080/api/v1/auth/register`,
+        url: `http://37.140.199.26:8080/api/v1/auth/register`,
         headers: { 
           'Content-Type': 'application/json'
         },

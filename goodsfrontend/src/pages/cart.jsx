@@ -20,6 +20,7 @@ function Cart(){
     const [numPage, setNumPage] = useState(1);
     const location = useLocation();
     const url = location.pathname;
+    const [productIds, setProductIds] = useState('');
     const paperStyle = { padding: '5px 10px', width: 600, margin: "30px auto", textAlign: "left" };
     const BackgroundImage = styled(Box)`
       background-image: url('https://img1.akspic.ru/attachments/crops/5/6/3/8/2/128365/128365-vegetarianskaya_pishha-banan-mestnoe_blyudo-pishha-frukty-1920x1080.jpg');
@@ -34,6 +35,39 @@ function Cart(){
       justify-content: center;
       color: white;
     `;
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+  
+      const userEmail = localStorage.getItem('mail');
+  
+      const orderData = {
+        userEmail,
+        productIds: productIds.split(',').map((id) => parseInt(id.trim())),
+      };
+  
+      try {
+        const response = await fetch(`http://${address}:8080/api/v1/auth/order`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify(orderData),
+        });
+  
+        if (response.ok) {
+          // Заказ успешно создан
+          console.log('Order created successfully');
+        } else {
+          // Обработка ошибок
+          console.error('Failed to create order');
+        }
+      } catch (error) {
+        console.error('Error creating order:', error);
+      }
+    };
+
 
     const handleClick = (data = {}) => {
       let controller = new AbortController();
@@ -50,6 +84,29 @@ function Cart(){
       axios.request(config)
         .then(response => {
           console.log(response.data);
+        })
+        .catch(error => {
+          console.log(error.config);
+        });
+        //controller.abort()
+    }
+    const order = (data = {}) => {
+      let controller = new AbortController();
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: `http://${address}:8080/api/v1/auth/order`,
+            headers: { 
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            data : data
+          }
+      axios.request(config)
+        .then(response => {
+          console.log(response.data);
+          const id = data.id;
+          console.log(data.id);
         })
         .catch(error => {
           console.log(error.config);
@@ -80,6 +137,7 @@ function Cart(){
     return(
       <BackgroundImage>
         <Content>
+          
         <div>
             {localStorage.token != null ?
                 (
@@ -88,6 +146,7 @@ function Cart(){
                         (
                             <Container>
                             <Paper elevation={3} style={paperStyle}>
+                            <Button onClick={handleSubmit} style={{ margin: "10px", textAlign: "left", background: "black", color: "white" }}>Order</Button>
                             <h1 style={{ textAlign: "center" }}>Your cart</h1>
                             {page.cart.map(item => (
                                 <>

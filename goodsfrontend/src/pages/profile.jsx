@@ -76,6 +76,10 @@ function Profile(){
                     <Link to="/goods/add">Add a new product</Link>:
                     null
                     }
+                    {person.role == "MANAGER" ?
+                    <Link to="/api/v1/auth/orderslist">View all orders</Link>:
+                    null
+                    }
                 </Paper>
               
               

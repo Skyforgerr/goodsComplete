@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 
-const address = '37.140.199.26';
+const address = "37.140.199.26";
 export default address;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

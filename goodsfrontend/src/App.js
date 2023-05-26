@@ -10,6 +10,7 @@ import {Login} from './pages/login';
 import {NewProduct} from './pages/newproduct';
 import Query from './pages/query';
 import Cart from './pages/cart';
+import OrderList from './pages/orderList';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/goods/del" element={<Products/>}/>
         <Route path="/api/v1/auth/cart" element={<Cart/>}/>
         <Route path="/api/v1/auth/deletecart" element={<Cart/>}/>
+        <Route path="/api/v1/auth/orderslist" element={<OrderList/>}/>
       </Routes>
     </div>
   );

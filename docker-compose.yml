@@ -16,6 +16,7 @@ services:
 
   db:
     build: ./docker/db
+    container_name: db
     restart: always
     environment:
       POSTGRES_DB: "public"

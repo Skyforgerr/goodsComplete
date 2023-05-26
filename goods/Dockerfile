@@ -1,2 +1,0 @@
-FROM openjdk:20
-ENV PORT=8080

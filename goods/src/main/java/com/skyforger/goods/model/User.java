@@ -44,21 +44,10 @@ public class User implements UserDetails{
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
-    private Set<Good> cartItems;
-
-    public void addCart(Good good){
-        cartItems.add(good);
-    }
-
-    public void delCart(Good good){
-        cartItems.remove(good);
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
     }
-
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -68,6 +57,14 @@ public class User implements UserDetails{
     joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_good"))
     private Set<Good> cart;
+
+    public void addToCart(Good good){
+        cart.add(good);
+    }
+
+    public void removeFromCart(Good good){
+        cart.remove(good);
+    }
 
     @Override
     public String getUsername() {

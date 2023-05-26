@@ -15,9 +15,13 @@ public class Good {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "VARCHAR")
     private String name;
+    @Column(columnDefinition = "INTEGER")
     private int cost;
+    @Column(columnDefinition = "VARCHAR")
     private String description;
+    @Column(columnDefinition = "INTEGER")
     private int amount;
 
 }

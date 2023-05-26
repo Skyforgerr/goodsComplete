@@ -36,10 +36,10 @@
       }
 
       @DeleteMapping("/del")
-      @CrossOrigin
-      public String deleteGood(@RequestParam(required = false) int goodId){
-          goodService.deleteGood(goodId);
-          return "The good " + goodId + " has been deleted.";
+      @CrossOrigin(origins = "*")
+      public String deleteGood(@RequestParam Long goodId){
+          goodRepository.deleteById(goodId);
+          return "redirect:goods/view";
       }
 
       @GetMapping("/view")
@@ -57,6 +57,7 @@
          if (name != null && !name.isEmpty()){
              List<Good> goods = goodService.findByName(name);
              if (goods.size() != 0){
+                 //jsonObject.put("maxPage", ((goods.size()%amountOfElementsOnPage == 0)? goods.size()/amountOfElementsOnPage : goods.size()/amountOfElementsOnPage + 1));
                  jsonObject.put("goods", goods);
                  message = jsonObject.toString();
              } else{

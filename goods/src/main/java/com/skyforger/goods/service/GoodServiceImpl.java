@@ -27,7 +27,7 @@
      }
 
      @Override
-     public void deleteGood(int good_id) {
+     public void deleteGood(Long good_id) {
          goodRepository.deleteById(good_id);
      }
  }

@@ -9,10 +9,11 @@
  import java.util.List;
 
  @Repository
- public interface GoodRepository extends JpaRepository<Good, Integer>{
+ public interface GoodRepository extends JpaRepository<Good, Long>{ //исправил на Long, возможны ошибки
   @Query("""
          SELECT g FROM Good g WHERE LOWER(g.name) LIKE CONCAT('%', LOWER(:name), '%')
          """)
   List<Good> searchByName(@Param("name") String name);
+
   List<Good> findById(long id);
  }

@@ -1,5 +1,6 @@
 package com.skyforger.goods.requests;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

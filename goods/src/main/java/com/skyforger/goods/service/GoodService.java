@@ -10,5 +10,5 @@
      public Good saveGood(Good good);
      public List<Good> getAllGoods();
      public List<Good> findByName(String name);
-     public void deleteGood(int good_id);
+     public void deleteGood(Long good_id);
  }

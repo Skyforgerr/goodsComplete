@@ -1,6 +1,10 @@
 package com.skyforger.goods.auth;
 
+import com.skyforger.goods.model.Good;
 import com.skyforger.goods.model.User;
+import com.skyforger.goods.repository.GoodRepository;
+import com.skyforger.goods.repository.UserRepository;
+import com.skyforger.goods.requests.CartRequest;
 import com.skyforger.goods.token.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -20,6 +25,12 @@ public class AuthenticationController {
 
     @Autowired
     TokenRepository tokenRepository;
+
+    @Autowired
+    GoodRepository goodRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
 
     @PostMapping("/register")
@@ -67,9 +78,37 @@ public class AuthenticationController {
         String message;
         token = token.substring(7,token.length());
         User user = tokenRepository.findByToken(token).get().getUser();
-        System.out.println(user.getCart());
-        json.put("cart", user.getCart());
+        json.put("cart", user.getCart()); //значение, к которому нужно цепляться в react
         message = json.toString();
         return message;
+    }
+
+    @PostMapping("/order")
+    @CrossOrigin
+    public String order(@RequestHeader("Authorization") String token, int id_user, Set<Good> goods){
+        JSONObject json = new JSONObject();
+        String message;
+        token = token.substring(7,token.length());
+        User user = tokenRepository.findByToken(token).get().getUser();
+        message = json.toString();
+        return message;
+    }
+
+    @PostMapping("/addcart")
+    @CrossOrigin(origins = "*")
+    public void addItemToCart(@RequestHeader("Authorization") String token, @RequestBody CartRequest cartRequest){
+        token = token.substring(7, token.length());
+        User user = tokenRepository.findByToken(token).get().getUser();
+        user.addToCart(goodRepository.findById(cartRequest.getGood_id()).get());
+        userRepository.save(user);
+    }
+
+    @PostMapping("/deletecart")
+    @CrossOrigin(origins = "*")
+    public void removeItemFromCart(@RequestHeader("Authorization") String token, @RequestBody CartRequest cartRequest){
+        token = token.substring(7,token.length());
+        User user = tokenRepository.findByToken(token).get().getUser();
+        user.removeFromCart(goodRepository.findById(cartRequest.getGood_id()).get());
+        userRepository.save(user);
     }
 }
